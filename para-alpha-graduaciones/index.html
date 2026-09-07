@@ -11,7 +11,10 @@
   :root{
     --tinta:#14110f;
     --papel:#fbf8f4;
-    --acento:#c2410c;
+    --acento:#c2410c;      /* cámbialo según el giro */
+    --acento-suave: color-mix(in srgb, var(--acento) 10%, white);
+    --acento-borde: color-mix(in srgb, var(--acento) 28%, white);
+    --fuente-titulo:Georgia,"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
@@ -19,43 +22,82 @@
     background:var(--papel); color:var(--tinta);
     line-height:1.6; -webkit-font-smoothing:antialiased;
   }
-  .caja{max-width:720px;margin:0 auto;padding:0 24px}
-  header{padding:72px 0 56px;text-align:center}
-  header .giro{
-    text-transform:uppercase;letter-spacing:.18em;font-size:13px;
-    color:var(--acento);font-weight:700;margin-bottom:14px;
+  .caja{max-width:760px;margin:0 auto;padding:0 24px}
+
+  header{
+    position:relative;padding:76px 0 60px;text-align:center;overflow:hidden;
   }
-  header h1{font-size:clamp(34px,7vw,54px);line-height:1.1;letter-spacing:-.02em}
-  header .donde{margin-top:14px;font-size:17px;opacity:.7}
+  header::before{
+    content:"";position:absolute;top:-140px;left:50%;transform:translateX(-50%);
+    width:560px;height:420px;border-radius:50%;
+    background:radial-gradient(closest-side, var(--acento-suave), transparent);
+    z-index:0;
+  }
+  header > *{position:relative;z-index:1}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--acento-suave);border:1px solid var(--acento-borde);
+    color:var(--acento);padding:8px 18px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;font-weight:700;
+    margin-bottom:22px;
+  }
+  header h1{
+    font-family:var(--fuente-titulo);
+    font-size:clamp(38px,7.5vw,62px);line-height:1.06;letter-spacing:-.01em;font-weight:700;
+  }
+  header .donde{margin-top:16px;font-size:16px;letter-spacing:.03em;opacity:.6}
   .boton{
-    display:inline-block;margin-top:32px;padding:17px 34px;border-radius:999px;
+    display:inline-block;margin-top:34px;padding:18px 36px;border-radius:999px;
     background:var(--acento);color:#fff;text-decoration:none;
     font-weight:700;font-size:17px;
+    box-shadow:0 14px 28px -10px color-mix(in srgb, var(--acento) 55%, transparent);
   }
-  .servicios{display:grid;gap:14px;padding:8px 0 56px}
+
+  .servicios{display:grid;gap:16px;padding:12px 0 20px}
   @media(min-width:640px){.servicios{grid-template-columns:repeat(3,1fr)}}
   .servicio{
-    background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:14px;
-    padding:26px 22px;text-align:center;font-weight:600;font-size:17px;
+    background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;
+    padding:30px 22px;text-align:center;
+    box-shadow:0 10px 24px -16px rgba(20,17,15,.18);
   }
+  .servicio .marca{
+    width:34px;height:34px;margin:0 auto 14px;border-radius:10px;
+    background:var(--acento);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;
+  }
+  .servicio .texto{font-weight:600;font-size:16.5px}
+
   .datos{
-    background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:14px;
-    padding:30px;margin-bottom:56px;
+    background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;
+    padding:34px;margin:24px 0 60px;
+    box-shadow:0 16px 32px -20px rgba(20,17,15,.18);
   }
-  .datos h2{font-size:14px;text-transform:uppercase;letter-spacing:.14em;
-    color:var(--acento);margin-bottom:18px}
-  .datos p{margin-bottom:10px}
-  .datos a{color:var(--tinta)}
+  .datos h2{
+    font-size:13px;text-transform:uppercase;letter-spacing:.16em;
+    color:var(--acento);margin-bottom:20px;font-weight:800;
+  }
+  .fila{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+  .fila:last-child{margin-bottom:0}
+  .fila .ico{
+    flex:none;width:36px;height:36px;border-radius:10px;
+    background:var(--acento-suave);display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+  }
+  .fila .txt{padding-top:6px;font-size:15.5px}
+  .datos a{color:var(--tinta);text-decoration:none;border-bottom:1px solid var(--acento-borde)}
+  .datos a:hover{border-bottom-color:var(--acento)}
+
   .cortesia{
-    border-top:1px solid rgba(0,0,0,.1);padding:26px 0 46px;
-    font-size:13.5px;line-height:1.65;opacity:.72;
+    border-top:1px solid rgba(0,0,0,.08);padding:28px 0 48px;
+    font-size:13.5px;line-height:1.7;opacity:.7;display:flex;gap:12px;
   }
+  .cortesia .regalo{flex:none;font-size:18px}
 </style>
 </head>
 <body>
 
   <header class="caja">
-    <p class="giro">Fotografía y video</p>
+    <p class="chip">📷 Fotografía y video</p>
     <h1>Alpha Graduaciones</h1>
     <p class="donde">Querétaro</p>
     <a class="boton" href="tel:4421492483">Llámanos: 4421492483</a>
@@ -63,19 +105,29 @@
 
   <div class="caja">
     <div class="servicios">
-      <div class="servicio">Sesiones fotográficas</div>
-      <div class="servicio">Video de eventos</div>
-      <div class="servicio">Fotografía de graduación</div>
+      <div class="servicio"><div class="marca">✓</div><div class="texto">Sesiones fotográficas</div></div>
+      <div class="servicio"><div class="marca">✓</div><div class="texto">Video de eventos</div></div>
+      <div class="servicio"><div class="marca">✓</div><div class="texto">Fotografía de graduación</div></div>
     </div>
 
     <div class="datos">
       <h2>Dónde y cómo</h2>
-      <p><strong>Dirección:</strong> Calle 9 #104, Comerciantes</p>
-      <p><strong>Teléfono:</strong> <a href="tel:4421492483">4421492483</a></p>
-      <p><a href="https://www.google.com/maps/search/?api=1&query=Alpha%20Graduaciones%2C%20Calle%209%20%23104%2C%20Comerciantes%2C%20Quer%C3%A9taro" target="_blank" rel="noopener">Ver cómo llegar en el mapa →</a></p>
+      <div class="fila">
+        <div class="ico">📍</div>
+        <div class="txt">Calle 9 #104, Comerciantes</div>
+      </div>
+      <div class="fila">
+        <div class="ico">☎️</div>
+        <div class="txt"><a href="tel:4421492483">4421492483</a></div>
+      </div>
+      <div class="fila">
+        <div class="ico">🗺️</div>
+        <div class="txt"><a href="https://www.google.com/maps/search/?api=1&query=Alpha%20Graduaciones%2C%20Calle%209%20%23104%2C%20Comerciantes%2C%20Quer%C3%A9taro" target="_blank" rel="noopener">Ver cómo llegar en el mapa</a></div>
+      </div>
     </div>
 
     <footer class="cortesia">
+      <div class="regalo">🎁</div>
       <p><strong>Ésta es una muestra de cortesía.</strong> La hice yo, Alejandra García, como ejemplo
       de cómo se vería Alpha Graduaciones en internet. <strong>No es el sitio oficial de Alpha Graduaciones</strong>
       y no fue hecha ni autorizada por ellos. Si al negocio le gusta, se la paso sin costo;
